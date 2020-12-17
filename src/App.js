@@ -4,9 +4,19 @@ import './App.css';
 function App() {
   const [numbers, setNumber] = useState({ first: '', second: '' });
 
+  function doValidate(value) {
+    if (value > 100000) return false;
+    return true;
+  }
+
   function handleChange(e) {
     const { value, name } = e.target;
-    setNumber(numbers => ({ ...numbers, [name]: value }));
+    if (!doValidate(value)) {
+      alert(`Too big!!! It can be dangerous for your browser 🦁`);
+      return;
+    }
+
+    setNumber(numbers => ({ ...numbers, [name]: Number(value) }));
   }
 
   function handleSubmit(e) {
@@ -24,7 +34,7 @@ function App() {
             name="first"
             id="first"
             required
-            value={numbers.first}
+            value={numbers.first.toString()}
             onChange={handleChange}
           />
           <label htmlFor="second">Second number:</label>
@@ -33,7 +43,7 @@ function App() {
             name="second"
             id="second"
             required
-            value={numbers.second}
+            value={numbers.second.toString()}
             onChange={handleChange}
           />
           <input type="submit" value="PROCESS" />
