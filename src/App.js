@@ -21,6 +21,21 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const [first, second] = [numbers.first, numbers.second].sort();
+    const arrayLength = second - first + 1;
+
+    const sequence = Array(arrayLength)
+      .fill()
+      .map((_, i) => {
+        return i + first;
+      });
+
+    const countNumbersDivisibleBy3 = sequence.reduce((acc, curr) => {
+      // Not excluding number 0
+      return curr % 3 === 0 ? ++acc : acc;
+    }, 0);
+
+    alert(countNumbersDivisibleBy3);
   }
 
   return (
